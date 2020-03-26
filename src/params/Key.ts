@@ -20,7 +20,10 @@ class BaseKey<T extends Key> {
 }
 
 // ############# Keys #############
-export const intKey = (name: string, units: Units = "NoUnits") => new BaseKey<IntKey>(name, "IntKey", units)
-export const stringKey = (name: string, units: Units = "NoUnits") => new BaseKey<StringKey>(name, "StringKey", units)
+const genKey = <T extends Key>(nameOfKey: NameOfKey<T>) =>
+    (name: string, units: Units = "NoUnits") => new BaseKey<T>(name, nameOfKey, units)
 
-export const intArrayKey = (name: string, units: Units = "NoUnits") => new BaseKey<IntArrayKey>(name, "IntArrayKey", units)
+export const intKey = genKey<IntKey>("IntKey")
+export const stringKey = genKey<StringKey>("StringKey")
+
+export const intArrayKey = genKey<IntArrayKey>("IntArrayKey")
